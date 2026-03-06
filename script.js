@@ -3,7 +3,13 @@
 const loginBtn = document.getElementById('login-btn')
 .addEventListener('click',function(){
 
-   console.log("hello vailok");
+   const username = document.getElementById('username').value;
+     const password = document.getElementById("password").value;
 
-
+     if(username === "admin" && password === "admin123"){
+         window.location.href = "All.html"
+     }else{
+        alert("Wrong Credentials")
+     }
+   
 });

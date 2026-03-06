@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Issue Tracker | All</title>
+
+    <!-- link CSS -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- tailwind & daisy UI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+
+<body>
+
+    <!-- navbar section -->
+  <section class=" container">
+        <div class="navbar bg-base-100 shadow-sm">
+            <div class="flex-1">
+                <div class="flex items-center justify-start gap-2">
+                    <img src="./assets/github-logo.png" class="w-8 h-8" alt="">
+                    <a class=" font-bold text-xl">Github Issue Tracker</a>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <input id="serchBtn" type="text" placeholder=" Search issues" class="input input-bordered  md:w-auto" />
+                <!-- <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i> -->
+
+                <div class="rounded-md">
+                    <button class="btn btn-primary text-white">+ New Issue</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+</body>
+
+</html>
