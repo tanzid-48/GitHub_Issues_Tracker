@@ -14,13 +14,30 @@ const displayAllIssue = (issues) => {
     cardContainer.innerHTML = "";
 
     issues.forEach(issue => {
+        const statusIcon =
+            issue.status === "open"
+                ? '<i class="fa-solid fa-circle-check text-green-500 text-xl"></i>'
+                : '<i class="fa-solid fa-circle-xmark text-red-500 text-xl"></i>';
+
+        const priorityColor =
+            issue.priority === "high"
+                ? "bg-red-100 text-red-500"
+                : issue.priority === "medium"
+                    ? "bg-yellow-100 text-yellow-600"
+                    : "bg-green-100 text-green-600";
         const card = document.createElement("div");
         card.className = "bg-white  border-t-green-500 border-t-4 rounded-xl shadow-md p-4 border border-gray-100";
         card.innerHTML = `
-                <div class="flex justify-between items-center mb-3">
-                    <div class=""> <img class="w-8 h-8" src="./assets/Open-Status.png" alt=""></div>
-                    <span class="bg-red-100 text-red-500 text-sm font-semibold px-3 py-1 rounded-full">${issue.priority}</span>
-                </div>
+
+      
+<div class="flex justify-between items-center mb-3">
+            <div>${statusIcon}</div>
+
+            <span class=" ${priorityColor} text-sm font-semibold px-3 py-1 rounded-full">
+                ${issue.priority}
+            </span>
+        </div>
+
 
                 <!-- title and description -->
                 <h3 class="font-bold text-lg mb-1">${issue.title}</h3>
@@ -31,11 +48,11 @@ const displayAllIssue = (issues) => {
             <!-- labels -->
             <div class="flex gap-2 mb-3">
                 ${issue.labels
-                    .map(
-                        label =>
-                            `<span class="bg-red-100   text-xs font-semibold px-2 py-1 rounded">${label}</span>`
-                    )
-                    .join("")}
+                .map(
+                    label =>
+                        `<span class="bg-red-100   text-xs font-semibold px-2 py-1 rounded">${label}</span>`
+                )
+                .join("")}
             </div>
 
 
