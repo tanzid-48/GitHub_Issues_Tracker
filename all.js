@@ -19,48 +19,43 @@ const displayAllIssue = (issues) => {
         card.innerHTML = `
                 <div class="flex justify-between items-center mb-3">
                     <div class=""> <img class="w-8 h-8" src="./assets/Open-Status.png" alt=""></div>
-                    <span class="bg-red-100 text-red-500 text-sm font-semibold px-3 py-1 rounded-full">HIGH</span>
+                    <span class="bg-red-100 text-red-500 text-sm font-semibold px-3 py-1 rounded-full">${issue.priority}</span>
                 </div>
 
                 <!-- title and description -->
-                <h3 class="font-bold text-lg mb-1">Fix Navigation Menu On Mobile Devices</h3>
-                <p class="paragraph text-sm mb-3">The navigation menu doesn't collapse properly on mobile devices...
+                <h3 class="font-bold text-lg mb-1">${issue.title}</h3>
+                <p class="paragraph text-sm mb-3">${issue.description}
                 </p>
 
-                <!-- labels -->
-                <div class="flex flex-wrap gap-2 mb-3">
-                    <span class="bg-red-100 text-red-500 text-sm px-3 font-semibold py-1 rounded-full flex items-center gap-1">
-                        <i class="fa-solid fa-bug"></i> BUG
-                    </span>
-                    <span class="bg-yellow-100 text-yellow-500 font-semibold text-sm px-2 py-1 rounded-full flex items-center gap-1">
-                       
-                      <i class="fa-solid fa-handshake-angle"></i> HELP WANTED
-                    </span>
-                </div>
+               
+            <!-- labels -->
+            <div class="flex gap-2 mb-3">
+                ${issue.labels
+                    .map(
+                        label =>
+                            `<span class="bg-red-100   text-xs font-semibold px-2 py-1 rounded">${label}</span>`
+                    )
+                    .join("")}
+            </div>
+
 
                 <hr class="border-gray-200 mb-3">
 
                 <!-- footer -->
-                <div class="text-gray-400 text-sm">
-                    <p>#1 by john_doe</p>
-                    <p>1/15/2024</p>
-                </div>
-
+     
+ <div class=" space-y- text-xs paragraph">
+                <span>#${issue.id} by ${issue.author}</span>
+                <p>${issue.createdAt}</p>
             </div>
+         
         `;
 
-        cardContainer.append(card)
+        cardContainer.appendChild(card)
 
     });
 
 
 
 }
-
-
-
-
-
-
 
 loadAllIssue()
