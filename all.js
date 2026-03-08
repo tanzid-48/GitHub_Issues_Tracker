@@ -101,6 +101,8 @@ const displayAllIssue = (issues) => {
                     ? "bg-yellow-100 text-yellow-600"
                     : "bg-green-100 text-green-600";
         const borderColor = issue.status === "open" ? "border-t-green-500" : "border-t-purple-500";
+
+
         const card = document.createElement("div");
         card.className = `bg-white ${borderColor} border-t-4 rounded-xl shadow-md p-4 border border-gray-100`;
         card.innerHTML = `
@@ -140,11 +142,54 @@ const displayAllIssue = (issues) => {
             </div>
          
         `;
+        card.addEventListener('click',() =>{
+            openIssueDetails(issue);
+            
+         })
 
-        cardContainer.appendChild(card)
+     cardContainer.appendChild(card)
 
     });
 
+    const openIssueDetails = (issue) => {
+       const modalContainer = document.getElementById('modal-container');
+       modalContainer.innerHTML = `
+          <h3 class="text-lg font-bold mb-2">${issue.title}</h3>
+
+          <div class="flex ">
+                        <ul class = "flex">
+                            <li>${issue.status}</li>
+                           <li>Open by ${issue.assignee}</li>
+                           <li>${issue.updatedAt}</li>
+                        </ul>
+                    </div>
+          <div class="flex gap-2 mb-3">
+                ${issue.labels
+                .map(
+                    label =>
+                        `<span class="bg-red-100   text-xs font-semibold px-2 py-1 rounded">${label}</span>`
+                )
+                .join("")}
+            </div>
+        <p class="mb-3 paragraph">${issue.description}</p>
+        <div class="flex justify-between items-center">
+                        <div class="">
+                            <p class="paragraph">assignee:</p>
+                            <span>${issue.assignee}</span>
+                        </div>
+                        <div class="">
+                            <p class="paragraph">Priority:</p>
+                            <span class="text-sm font-semibold px-3 py-1 rounded-full">
+                                ${issue.priority}
+                            </span>
+                        </div>
+                    </div>
+       
+       `;
+
+
+        document.getElementById('my_modal_5').showModal();
+    };
 
 
 }
