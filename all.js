@@ -8,33 +8,34 @@ const loadAllIssue = () => {
     fetch(url)
         .then(res => res.json())
         .then(json => {
-            allIssues = json.data;
+              allIssues = json.data; 
             displayAllIssue(allIssues);
 
         });
 }
- const setActiveButton = (activeBtn) => {
+
+const setActiveButton = (activeBtn) => {
     [allBtn, openBtn, closedBtn].forEach(btn => {
         btn.classList.remove('btn-primary');
-        btn.classList.add('btn-ghost'); 
+        btn.classList.add('btn-ghost');
     });
     activeBtn.classList.add('btn-primary');
     activeBtn.classList.remove('btn-ghost');
 };
- allBtn.addEventListener('click',()=>{
+allBtn.addEventListener('click', () => {
     displayAllIssue(allIssues);
     setActiveButton(allBtn);
- });
- openBtn.addEventListener('click',()=>{
-    const openIssue = allIssues.filter(issue => issue.status ==="open");
+});
+openBtn.addEventListener('click', () => {
+    const openIssue = allIssues.filter(issue => issue.status === "open");
     displayAllIssue(openIssue);
     setActiveButton(openBtn);
- });
-closedBtn.addEventListener('click',()=>{
-    const closedIssue = allIssues.filter(issue => issue.status ==="closed");
+});
+closedBtn.addEventListener('click', () => {
+    const closedIssue = allIssues.filter(issue => issue.status === "closed");
     displayAllIssue(closedIssue);
     setActiveButton(closedBtn);
- });
+});
 
 const displayAllIssue = (issues) => {
     const cardContainer = document.getElementById('card-container');
@@ -52,11 +53,10 @@ const displayAllIssue = (issues) => {
                 : issue.priority === "medium"
                     ? "bg-yellow-100 text-yellow-600"
                     : "bg-green-100 text-green-600";
-        const card = document.createElement("div");
-        card.className = "bg-white  border-t-green-500 border-t-4 rounded-xl shadow-md p-4 border border-gray-100";
+    const borderColor = issue.status === "open" ? "border-t-green-500" : "border-t-purple-500";
+  const card = document.createElement("div");
+            card.className = `bg-white ${borderColor} border-t-4 rounded-xl shadow-md p-4 border border-gray-100`;
         card.innerHTML = `
-
-      
 <div class="flex justify-between items-center mb-3">
             <div>${statusIcon}</div>
 
