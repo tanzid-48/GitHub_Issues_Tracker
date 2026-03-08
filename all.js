@@ -1,14 +1,41 @@
+let allIssues = [];
+const allBtn = document.getElementById('all-btn');
+const openBtn = document.getElementById('open-btn');
+const closedBtn = document.getElementById('closed-btn');
 
 const loadAllIssue = () => {
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
     fetch(url)
         .then(res => res.json())
         .then(json => {
-            displayAllIssue(json.data)
+            allIssues = json.data;
+            displayAllIssue(allIssues);
 
-        })
-
+        });
 }
+ const setActiveButton = (activeBtn) => {
+    [allBtn, openBtn, closedBtn].forEach(btn => {
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-ghost'); 
+    });
+    activeBtn.classList.add('btn-primary');
+    activeBtn.classList.remove('btn-ghost');
+};
+ allBtn.addEventListener('click',()=>{
+    displayAllIssue(allIssues);
+    setActiveButton(allBtn);
+ });
+ openBtn.addEventListener('click',()=>{
+    const openIssue = allIssues.filter(issue => issue.status ==="open");
+    displayAllIssue(openIssue);
+    setActiveButton(openBtn);
+ });
+closedBtn.addEventListener('click',()=>{
+    const closedIssue = allIssues.filter(issue => issue.status ==="closed");
+    displayAllIssue(closedIssue);
+    setActiveButton(closedBtn);
+ });
+
 const displayAllIssue = (issues) => {
     const cardContainer = document.getElementById('card-container');
     cardContainer.innerHTML = "";
@@ -33,7 +60,7 @@ const displayAllIssue = (issues) => {
 <div class="flex justify-between items-center mb-3">
             <div>${statusIcon}</div>
 
-            <span class=" ${priorityColor} text-sm font-semibold px-3 py-1 rounded-full">
+            <span class="${priorityColor} text-sm font-semibold px-3 py-1 rounded-full">
                 ${issue.priority}
             </span>
         </div>
@@ -75,4 +102,5 @@ const displayAllIssue = (issues) => {
 
 }
 
-loadAllIssue()
+loadAllIssue();
+setActiveButton(allBtn);
