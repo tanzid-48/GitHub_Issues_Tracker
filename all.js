@@ -2,26 +2,59 @@ let allIssues = [];
 const allBtn = document.getElementById('all-btn');
 const openBtn = document.getElementById('open-btn');
 const closedBtn = document.getElementById('closed-btn');
-const issuesCount = document.getElementById('issues')
+const issuesCount = document.getElementById('issues');
+const searchInput = document.getElementById('searchBtn');
+const loadingSpinner = document.getElementById('loading-spinner');
+const cardContainer = document.getElementById("card-container");
+
 
 const loadAllIssue = () => {
+
+    loadingSpinner.classList.remove("hidden");
+    cardContainer.classList.add("hidden");
+
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
     fetch(url)
         .then(res => res.json())
         .then(json => {
-              allIssues = json.data; 
+            allIssues = json.data;
             displayAllIssue(allIssues);
-            updateIssueCounts(allIssues); 
+            updateIssueCounts(allIssues);
+
+            loadingSpinner.classList.add("hidden");
+            cardContainer.classList.remove("hidden");
 
         });
 }
+
+searchInput.addEventListener('input', () => {
+    const searchText = searchInput.value;
+    if (searchText === "") {
+
+        displayAllIssue(allIssues);
+        updateIssueCounts(allIssues);
+        return;
+
+    }
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(json => {
+            const issues = json.data
+            displayAllIssue(issues);
+            updateIssueCounts(issues);
+        })
+
+});
+
 
 const updateIssueCounts = (issues) => {
     const total = issues.length;
     const open = issues.filter(issue => issue.status === "open").length;
     const closed = issues.filter(issue => issue.status === "closed").length;
 
-        issuesCount.innerText = `${total} issue`
+    issuesCount.innerText = `${total} issue`
 };
 
 
@@ -36,23 +69,23 @@ const setActiveButton = (activeBtn) => {
 allBtn.addEventListener('click', () => {
     displayAllIssue(allIssues);
     setActiveButton(allBtn);
-    updateIssueCounts(allIssues); 
+    updateIssueCounts(allIssues);
 });
 openBtn.addEventListener('click', () => {
     const openIssue = allIssues.filter(issue => issue.status === "open");
     displayAllIssue(openIssue);
     setActiveButton(openBtn);
-    updateIssueCounts(openIssue); 
+    updateIssueCounts(openIssue);
 });
 closedBtn.addEventListener('click', () => {
     const closedIssue = allIssues.filter(issue => issue.status === "closed");
     displayAllIssue(closedIssue);
     setActiveButton(closedBtn);
-    updateIssueCounts(closedIssue); 
+    updateIssueCounts(closedIssue);
 });
 
 const displayAllIssue = (issues) => {
-    const cardContainer = document.getElementById('card-container');
+    // const cardContainer = document.getElementById('card-container');
     cardContainer.innerHTML = "";
 
     issues.forEach(issue => {
@@ -67,9 +100,9 @@ const displayAllIssue = (issues) => {
                 : issue.priority === "medium"
                     ? "bg-yellow-100 text-yellow-600"
                     : "bg-green-100 text-green-600";
-    const borderColor = issue.status === "open" ? "border-t-green-500" : "border-t-purple-500";
-  const card = document.createElement("div");
-            card.className = `bg-white ${borderColor} border-t-4 rounded-xl shadow-md p-4 border border-gray-100`;
+        const borderColor = issue.status === "open" ? "border-t-green-500" : "border-t-purple-500";
+        const card = document.createElement("div");
+        card.className = `bg-white ${borderColor} border-t-4 rounded-xl shadow-md p-4 border border-gray-100`;
         card.innerHTML = `
 <div class="flex justify-between items-center mb-3">
             <div>${statusIcon}</div>

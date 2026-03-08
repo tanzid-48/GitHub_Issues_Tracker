@@ -38,7 +38,8 @@
                 </div>
             </div>
             <div class="flex gap-2">
-                <input id="serchBtn" type="text" placeholder=" Search issues" class="input input-bordered  md:w-auto" />
+                <input id="searchBtn" type="text" placeholder=" Search issues"
+                    class="input input-bordered  md:w-auto" />
                 <!-- <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i> -->
 
                 <div class="rounded-md">
@@ -87,10 +88,15 @@
                 </div>
             </div>
         </div>
-
         <hr class="mb-5 border-gray-300 ">
 
-
+        <div id="loading-spinner" class="h-[60vh] hidden justify-center items-center">
+            <span class="loading loading-bars loading-xs"></span>
+            <span class="loading loading-bars loading-sm"></span>
+            <span class="loading loading-bars loading-md"></span>
+            <span class="loading loading-bars loading-lg"></span>
+            <span class="loading loading-bars loading-xl"></span>
+        </div>
         <div id="card-container" class="grid grid-cols-4 gap-2">
 
         </div>
