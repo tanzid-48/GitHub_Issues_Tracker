@@ -2,6 +2,7 @@ let allIssues = [];
 const allBtn = document.getElementById('all-btn');
 const openBtn = document.getElementById('open-btn');
 const closedBtn = document.getElementById('closed-btn');
+const issuesCount = document.getElementById('issues')
 
 const loadAllIssue = () => {
     const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
@@ -10,9 +11,19 @@ const loadAllIssue = () => {
         .then(json => {
               allIssues = json.data; 
             displayAllIssue(allIssues);
+            updateIssueCounts(allIssues); 
 
         });
 }
+
+const updateIssueCounts = (issues) => {
+    const total = issues.length;
+    const open = issues.filter(issue => issue.status === "open").length;
+    const closed = issues.filter(issue => issue.status === "closed").length;
+
+        issuesCount.innerText = `${total} issue`
+};
+
 
 const setActiveButton = (activeBtn) => {
     [allBtn, openBtn, closedBtn].forEach(btn => {
@@ -25,16 +36,19 @@ const setActiveButton = (activeBtn) => {
 allBtn.addEventListener('click', () => {
     displayAllIssue(allIssues);
     setActiveButton(allBtn);
+    updateIssueCounts(allIssues); 
 });
 openBtn.addEventListener('click', () => {
     const openIssue = allIssues.filter(issue => issue.status === "open");
     displayAllIssue(openIssue);
     setActiveButton(openBtn);
+    updateIssueCounts(openIssue); 
 });
 closedBtn.addEventListener('click', () => {
     const closedIssue = allIssues.filter(issue => issue.status === "closed");
     displayAllIssue(closedIssue);
     setActiveButton(closedBtn);
+    updateIssueCounts(closedIssue); 
 });
 
 const displayAllIssue = (issues) => {
