@@ -142,56 +142,52 @@ const displayAllIssue = (issues) => {
             </div>
          
         `;
-        card.addEventListener('click',() =>{
+        card.addEventListener('click', () => {
             openIssueDetails(issue);
-            
-         })
 
-     cardContainer.appendChild(card)
+        })
+
+        cardContainer.appendChild(card)
 
     });
 
     const openIssueDetails = (issue) => {
-       const modalContainer = document.getElementById('modal-container');
-       modalContainer.innerHTML = `
-          <h3 class="text-lg font-bold mb-2">${issue.title}</h3>
+        const modalContainer = document.getElementById('modal-container');
+        modalContainer.innerHTML = `
+          <h3 class="text-xl font-bold mb-2">${issue.title}</h3>
 
-          <div class="flex ">
-                        <ul class = "flex">
-                            <li>${issue.status}</li>
-                           <li>Open by ${issue.assignee}</li>
-                           <li>${issue.updatedAt}</li>
+          <div class="">
+                        <ul class = "flex gap-4">
+                            <li class =" bg-green-400 px-3 text-center rounded-full ">${issue.status}</li>
+                           <li class="paragraph"> Opened by ${issue.assignee}</li>
+                           <li class = "paragraph">${issue.updatedAt}</li>
                         </ul>
                     </div>
           <div class="flex gap-2 mb-3">
                 ${issue.labels
                 .map(
                     label =>
-                        `<span class="bg-red-100   text-xs font-semibold px-2 py-1 rounded">${label}</span>`
+                        `<span class="bg-red-100 text-xs font-semibold px-2 py-1 rounded">${label}</span>`
                 )
                 .join("")}
             </div>
         <p class="mb-3 paragraph">${issue.description}</p>
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center bg-slate-50 shadow-xl mx-auto">
                         <div class="">
                             <p class="paragraph">assignee:</p>
-                            <span>${issue.assignee}</span>
+                            <span class= "font-bold">${issue.assignee}</span>
                         </div>
-                        <div class="">
+                        <div class="space-y-1">
                             <p class="paragraph">Priority:</p>
-                            <span class="text-sm font-semibold px-3 py-1 rounded-full">
+                            <span class="text-sm  px-3 py-1 text-white bg-orange-600 rounded-full">
                                 ${issue.priority}
                             </span>
-                        </div>
+                        </div> 
                     </div>
        
        `;
-
-
         document.getElementById('my_modal_5').showModal();
     };
-
-
 }
 
 loadAllIssue();
